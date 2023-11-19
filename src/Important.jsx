@@ -1,0 +1,1 @@
+export const baseUrl = "https://company-task.choudhari-toufi.repl.co"
