@@ -64,7 +64,7 @@ const handleSaveChanges = async () => {
     });
 
     console.log('New banner created');
-    navigate('/');
+    navigate('/showbanner');
   } catch (err) {
     console.error(err);
     console.log('There was an error');
@@ -144,7 +144,7 @@ const handleUpdate = async () => {
     });
 
     console.log(editContent?._id);
-    navigate('/');
+    navigate('/showbanner');
   } catch (error) {
     console.error('Error updating banner:', error);
   }

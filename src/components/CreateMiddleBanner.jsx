@@ -18,7 +18,7 @@ const CreateMiddleBanner = () => {
         <p className="text-[#868686] font-['Poppins'] text-sm leading-[normal]">Edit , Delete or push Banner</p>
       </div>
       <div className="right w-[85px] flex " style={{border:"1px solid whitesmoke"}}>
-        <KeyboardBackspaceIcon sx={{backgroundColor:"#0F2C64" , color:"#fff"}} onClick={()=>navigate("/")} />
+        <KeyboardBackspaceIcon sx={{backgroundColor:"#0F2C64" , color:"#fff"}} onClick={()=>navigate("/showbanner")} />
         <p className="text">
         Go Back
         </p>
