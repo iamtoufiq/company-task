@@ -2,7 +2,7 @@
 import { toast } from 'react-toastify';
 import DeleteIcon from "../Icons/DeleteIcon"
 import EditPencil from "../Icons/EditPencil"
-import { RotatingLines } from 'react-loader-spinner';
+
 import {
   Card,
   CardHeader,
