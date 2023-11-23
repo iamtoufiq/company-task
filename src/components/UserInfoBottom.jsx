@@ -92,7 +92,9 @@ const UserInfoBottom = () => {
       // Show loader while waiting for the API response
       // You can implement your own loading indicator logic here
   
-      const apiUrl = 'https://company-task.choudhari-toufi.repl.co/users';
+      // const apiUrl = 'https://company-task.choudhari-toufi.repl.co/users';
+      const apiUrl = `${process.env.REACT_APP_BASE_URL}/users`;
+
   
       const response = await fetch(apiUrl, {
         method: 'POST',
@@ -135,7 +137,10 @@ const UserInfoBottom = () => {
   };
 // --------------------------
 const updateUser = async () => {
-  const apiUrl = `https://company-task.choudhari-toufi.repl.co/users/${editUserContent?._id}`;
+  // const apiUrl = `https://company-task.choudhari-toufi.repl.co/users/${editUserContent?._id}`;
+  // const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/${editUserContent?._id}`);
+  const apiUrl = `${process.env.REACT_APP_BASE_URL}/users/${editUserContent?._id}`;
+
 
   try {
     const response = await fetch(apiUrl, {

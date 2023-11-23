@@ -32,8 +32,9 @@ const UserBox = () => {
   };
   const handleConfirmDelete = async () => {
     try {
-      const apiUrl = `https://company-task.choudhari-toufi.repl.co/users/${selectedUserId}`;
-      
+      // const apiUrl = `https://company-task.choudhari-toufi.repl.co/users/${selectedUserId}`;
+      const apiUrl = `${process.env.REACT_APP_BASE_URL}/users/${selectedUserId}`;
+
       const response = await fetch(apiUrl, {
         method: 'DELETE',
       });

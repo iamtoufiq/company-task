@@ -51,11 +51,15 @@ const handleSaveChanges = async () => {
     data.append('upload_preset', 'uploadingbro');
     data.append('cloud_name', 'dhiqmh5x1');
 
-    const response = await fetch('https://api.cloudinary.com/v1_1/dhiqmh5x1/image/upload', {
+    // const response = await fetch('process.env.REACT_APP_API_KEY', {
+    //   method: 'POST',
+    //   body: data,
+    // });
+    const response = await fetch(process.env.REACT_APP_API_KEY, {
       method: 'POST',
       body: data,
     });
-
+    
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -89,10 +93,17 @@ const handleUpdate = async () => {
       data.append('upload_preset', 'uploadingbro');
       data.append('cloud_name', 'dhiqmh5x1');
 
-      const response = await fetch('https://api.cloudinary.com/v1_1/dhiqmh5x1/image/upload', {
+      // const response = await fetch('https://api.cloudinary.com/v1_1/dhiqmh5x1/image/upload', {
+      //   method: 'POST',
+      //   body: data,
+      // });
+
+
+      const response = await fetch(process.env.REACT_APP_API_KEY, {
         method: 'POST',
         body: data,
       });
+      
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);

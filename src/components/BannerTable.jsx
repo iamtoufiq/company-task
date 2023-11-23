@@ -17,7 +17,9 @@ const BannerTable = () => {
     const [bannerData , setBannerData]=useState([])
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://company-task.choudhari-toufi.repl.co/banners');
+
+        const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/banners`);
+
         setBannerData(response?.data);
     
       } catch (error) {
@@ -33,8 +35,9 @@ const BannerTable = () => {
 
 
       try {
-        const apiUrl = `https://company-task.choudhari-toufi.repl.co/banners/${selectedUserId}`;
-        
+        // const apiUrl = `https://company-task.choudhari-toufi.repl.co/banners/${selectedUserId}`;
+        const apiUrl = `${process.env.REACT_APP_BASE_URL}/banners/${selectedUserId}`;
+
         const response = await fetch(apiUrl, {
           method: 'DELETE',
         });
