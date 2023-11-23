@@ -328,7 +328,7 @@ const updateUser = async () => {
 </div>
 
 <div className="flex gap-2 justify-end">
-  <button className="flex-shrink-0 w-[7.875rem] h-[2.4375rem] rounded-md border-[1.35px] border-[#adb7ca] text-[#adb7ca] font-['Poppins'] text-base font-medium leading-[normal]">
+  <button className="flex-shrink-0 w-[7.875rem] h-[2.4375rem] rounded-md border-[1.35px] border-[#adb7ca] text-[#adb7ca] font-['Poppins'] text-base font-medium leading-[normal]" onClick={()=>navigate("/userlist")}>
     Cancel
   </button>
   <button

@@ -160,7 +160,7 @@ const handleUpdate = async () => {
         <div className=" flex gap-2 justify-end">
         
         
-        <button className="flex-shrink-0 w-[7.875rem] h-[2.4375rem] rounded-md border-[1.35px] border-[#adb7ca] text-[#adb7ca] font-['Poppins'] text-base font-medium leading-[normal]" >Cancel</button>
+        <button className="flex-shrink-0 w-[7.875rem] h-[2.4375rem] rounded-md border-[1.35px] border-[#adb7ca] text-[#adb7ca] font-['Poppins'] text-base font-medium leading-[normal]" onClick={()=>navigate("/showbanner")} >Cancel</button>
        { editContent?._id ?
          <button className="flex-shrink-0 w-[9.5625rem] h-[2.4375rem] rounded-md bg-[#0f2c64] text-white font-['Poppins'] text-base font-medium leading-[normal]" onClick={()=>handleUpdate()}>SaveChanges</button> :  <button className="flex-shrink-0 w-[9.5625rem] h-[2.4375rem] rounded-md bg-[#0f2c64] text-white font-['Poppins'] text-base font-medium leading-[normal]" onClick={handleSaveChanges}>SaveChanges</button>
        }
