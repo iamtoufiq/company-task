@@ -5,6 +5,7 @@ import BannerTable from './BannerTable'
 const BannerRight = () => {
   return (
     <div className='w-full h-screen overflow-y-scroll example'>
+      
       <Header/>
       <BannerSection/>
       <BannerTable/>

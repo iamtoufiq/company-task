@@ -2,22 +2,18 @@ import React, { useEffect, useState } from 'react'
 import DeleteIcon from '../Icons/DeleteIcon'
 import EditPencil from '../Icons/EditPencil'
 import NotificationAddIcon from '@mui/icons-material/NotificationAdd';
-import { Avatar, Dialog } from '@material-tailwind/react';
+import { Avatar } from '@material-tailwind/react';
 import axios from 'axios';
-
-import Button from '@mui/material/Button';
-
-import DialogTitle from '@mui/material/DialogTitle';
 import { useGlobalHook } from '../Context/Contexts';
 import { useNavigate } from 'react-router-dom';
+import DeleteDialog from './DeleteDialog';
+import { toast } from 'react-toastify';
 const BannerTable = () => {
   const navigate= useNavigate()
-  // const  editData=  useGlobalHook();
-  // console.log("editData",editData);
-  const { editData} =
+  const { editData , loading} =
     useGlobalHook();
-    // console.log("editData",editData);
-    const data= [1,2 ,3,4,5,6,7,   ]
+    const [selectedUserId, setSelectedUserId] = useState(null);
+    const [isDialogOpen, setDialogOpen] = useState(false);
     const [bannerData , setBannerData]=useState([])
     const fetchData = async () => {
       try {
@@ -29,32 +25,58 @@ const BannerTable = () => {
       }
     };
     useEffect(() => {
-      // Make a GET request to fetch all banners when the component mounts
-     
   
       fetchData();
     }, []); 
 
-    const handleDelete = async (bannerId) => {
+    const handleDelete = async () => {
+
+
       try {
-        const response = await axios.delete(`https://company-task.choudhari-toufi.repl.co/banners/${bannerId}`);
+        const apiUrl = `https://company-task.choudhari-toufi.repl.co/banners/${selectedUserId}`;
+        
+        const response = await fetch(apiUrl, {
+          method: 'DELETE',
+        });
+    
+        if (!response.ok) {
+          throw new Error('Failed to delete user');
+        }
+    
         fetchData()
+        setDialogOpen(false);
+        toast.success('Banner deleted successfully', {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        setSelectedUserId(null);
       } catch (error) {
-        console.error('Error deleting banner:', error);
+        console.error('Error deleting Banner:', error);
+        toast.error('Failed to delete Banner', {
+          position: toast.POSITION.TOP_CENTER,
+        });
       }
     };
-
+    const handleDeleteUser = (userId) => {
+      setSelectedUserId(userId);
+      setDialogOpen(true);
+    };
     
+
+    const handleCloseDialog = () => {
+      setDialogOpen(false);
+      setSelectedUserId(null);
+    };
   return (
     <>
-    <div>
-     <table className="border-collapse w-full">
+    {!loading  ? (<div>
+     <table className="w-full " style={{borderSpacing:"10px"}}>
       <thead>
-        <tr className='bg-[#FAFAFA] text-[#878787]'>
-          <th className="border p-2  w-1/4">Banner Image</th>
-          <th className="border p-2 w-1/4">Title</th>
-          <th className="border p-2 w-1/4">url Link</th>
-          <th className="border p-2 w-1/4">Banner Info</th>
+        <tr className='bg-[#FAFAFA] text-[#878787] border'>
+          <th className=" p-2  w-1/4">Banner Image</th>
+          <th className=" p-2 w-1/4">Title</th>
+          <th className=" p-2 w-1/4">url Link</th>
+          <th className=" p-2 w-1/4">Banner Info</th>
+          <th className=" p-2 w-1/4"></th>
         </tr>
       </thead>
       <tbody>
@@ -62,7 +84,7 @@ const BannerTable = () => {
         {
             bannerData.map((data)=>{
                 return(
-                    <tr key={data?._id}>
+                    <tr key={data?._id} className=' border tr-spacing '>
                     <td className=" p-2 w-[7.75rem] h-14 rounded-lg border border-[#0f2c64]/[.15] bg-[#f6f9ff] flex justify-center items-center flex-shrink-0 m-auto">
                     <Avatar
                           src={data?.bannerCoverImage}
@@ -73,12 +95,15 @@ const BannerTable = () => {
                     
                     </td>
            
-                     <td className="border p-2 text-black leading-[normal]">{data?.bannerTitle}</td>
-                     <td className="border p-2">http/sdvbavd/564sdgdhgre</td>
-                     <td className="border p-2 flex">
-                       <div className="text">{data?.bannerContent} </div>
-                       <div className="icon flex items-center"><div className="div"><NotificationAddIcon/></div> <div className="div cursor-pointer" onClick={()=>handleDelete(data?._id)}><DeleteIcon/></div> 
-                       <div className="div" onClick={() => {
+                     <td className=" p-2 text-black leading-[normal]">{data?.bannerTitle}</td>
+                     <td className=" p-2">http/sdvbavd/564sdgdhgre</td>
+                     <td className=" p-2 ">
+                       <div className="text w-[400px]">{data?.bannerContent} </div>
+                       
+                     </td>
+                     <td>
+                     <div className="icon flex items-center"><div className="div"><NotificationAddIcon/></div> <div className="div cursor-pointer" onClick={()=>handleDeleteUser(data?._id)}><DeleteIcon/></div> 
+                       <div className="div cursor-pointer" onClick={() => {
     editData({
       bannerContent: data.bannerContent,
       bannerCoverImage: data.bannerCoverImage,
@@ -95,29 +120,19 @@ const BannerTable = () => {
         }
        
       
-        {/* Add more rows as needed */}
+
       </tbody>
     </table>
-   
-    </div>
+    <DeleteDialog handleCloseDialog={handleCloseDialog} handleConfirmDelete={handleDelete} isDialogOpen={isDialogOpen}/>
 
-    {/* ------------------------------ */}
-    {/* opacity: 1;
-    transform: none;
-    width: 480px;
-    margin: auto;
-    top: 50%;
-    transform: translateY(-50%);
-    border: 2px solid whitesmoke; */}
+    </div>) :  <h1 className='text-3xl text-center flex justify-center items-center'>Loading...</h1> }
+ 
+    
+
+ 
   
     </>
   )
 }
 
 export default BannerTable
-
-
-
-
-
-

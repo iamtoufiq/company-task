@@ -7,11 +7,12 @@ import { createBanner } from '../utils/AddBanner';
 import {baseUrl} from "../Important"
 import axios from 'axios';
 import { useGlobalHook } from '../Context/Contexts';
+import { toast } from 'react-toastify';
 const AddBanner = () => {
 
 const navigate = useNavigate();
 const fileInputRef = useRef(null);
-const { editContent } = useGlobalHook();
+const { editContent, handleLoading , loading } = useGlobalHook();
 
 const [selectedFileName, setSelectedFileName] = useState(null);
 const [bannerTitle, setBannerTitle] = useState('');
@@ -34,12 +35,17 @@ const handleFileChange = (e) => {
 };
 
 const handleSaveChanges = async () => {
+  handleLoading(true)
   try {
-    if (!selectedFileName) {
-      console.log('Please select an image.');
+  
+    if (!bannerContent && !bannerTitle) {
+      toast.error('Please Add Content or Banner Title.');
       return;
     }
-
+    if (!selectedFileName) {
+      toast.error('Please select an image.');
+      return;
+    }
     const data = new FormData();
     data.append('file', selectedFileName);
     data.append('upload_preset', 'uploadingbro');
@@ -62,57 +68,18 @@ const handleSaveChanges = async () => {
       bannerContent,
       bannerCoverImage: cloudinaryData.url,
     });
-
-    console.log('New banner created');
+    handleLoading(false)
     navigate('/showbanner');
+    toast.success('New banner created successfully');
+    
   } catch (err) {
     console.error(err);
     console.log('There was an error');
   }
 };
-// const handleUpdate = async () => {
-//   try {
 
-
-
-
-//     const data = new FormData();
-//     data.append('file', selectedFileName);
-//     data.append('upload_preset', 'uploadingbro');
-//     data.append('cloud_name', 'dhiqmh5x1');
-
-//     const response = await fetch('https://api.cloudinary.com/v1_1/dhiqmh5x1/image/upload', {
-//       method: 'POST',
-//       body: data,
-//     });
-
-//     if (!response.ok) {
-//       throw new Error(`HTTP error! Status: ${response.status}`);
-//     }
-
-//     const cloudinaryData = await response.json();
-//     console.log(cloudinaryData.url);
-
-//     // Make a PUT request to update the banner
-//     await axios.put(`${baseUrl}/banners/${editContent?._id}`, {
-//      ...editContent , 
-
-   
-//       bannerContent: bannerContent,
-//       bannerCoverImage: cloudinaryData?.url || editContent?.bannerCoverImage,
-//       bannerTitle: bannerTitle,
-     
-
-
-//     });
-// console.log(editContent?._id)
-// navigate('/');
-//   } catch (error) {
-//     console.error('Error updating banner:', error);
-    
-//   }
-// };
 const handleUpdate = async () => {
+  handleLoading(true)
   try {
     const data = new FormData();
     let cloudinaryDataUrl = '';
@@ -135,15 +102,15 @@ const handleUpdate = async () => {
       cloudinaryDataUrl = cloudinaryData.url;
     }
 
-    // Make a PUT request to update the banner
     await axios.put(`${baseUrl}/banners/${editContent?._id}`, {
       ...editContent,
       bannerContent: bannerContent,
       bannerCoverImage: cloudinaryDataUrl || editContent?.bannerCoverImage,
       bannerTitle: bannerTitle,
     });
-
+    handleLoading(false)
     console.log(editContent?._id);
+    toast.success('Banner updated successfully');
     navigate('/showbanner');
   } catch (error) {
     console.error('Error updating banner:', error);

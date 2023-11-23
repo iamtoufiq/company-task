@@ -1,4 +1,6 @@
 import React from 'react'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Sidebar from './components/Sidebar'
 import BannerRight from './components/BannerRight'
 import ShowBanner from './pages/ShowBanner'
@@ -10,14 +12,15 @@ import DeleteDialog from './components/DeleteDialog'
 const App = () => {
   return (
     <div className='h-screen overflow-y-scroll'>
-
+ <ToastContainer />
 {/* <ShowBanner/>
 <CreateBanner/> */}
 <Routes>
 {/* <Route exact path="/user" element={<User />} /> */}
 <Route exact path="/" element={<User />} />
+{/* <Route exact path="/" element={<DeleteDialog />} />  */}
           <Route exact path="/showbanner" element={<ShowBanner />} />
-          {/* <Route exact path="/" element={<DeleteDialog />} />  */}
+          
           <Route exact path="/createbanner" element={<CreateBanner />} />
          
           <Route exact path="/userlist" element={<UserList />} />

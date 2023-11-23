@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function DeleteDialog() {
+export default function DeleteDialog({isDialogOpen, handleConfirmDelete , handleCloseDialog}) {
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -13,12 +13,10 @@ export default function DeleteDialog() {
   };
   return (
     <React.Fragment>
-     <Button variant="outlined" onClick={handleClickOpen}>
-        Open alert dialog
-      </Button>
+   
       <Dialog
-        open={open}
-        onClose={handleClose}
+        open={isDialogOpen}
+        onClose={handleCloseDialog}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
     
@@ -33,13 +31,13 @@ export default function DeleteDialog() {
         <div className="grup_btn flex items-center justify-center h-[150px] w-[482px]">
 
          
-          <Button onClick={handleClose} autoFocus className="text-black font-['Poppins'] text-lg font-medium leading-[normal]"> 
+          <Button onClick={handleConfirmDelete} autoFocus className="text-black font-['Poppins'] text-lg font-medium leading-[normal]"> 
           <div className="text-black font-['Poppins'] text-lg font-medium leading-[normal]">Yes</div>
 
           </Button>
          
 
-          <Button onClick={()=>setOpen(false)} className="flex-shrink-0 w-[9.0625rem] h-[2.875rem] rounded-[0.3125rem] bg-[#0f2c64]" style={{background:"#0f2c64"}}> <div className="  text-white font-['Poppins'] text-lg font-medium leading-[normal]">Not Now</div></Button>
+          <Button onClick={handleCloseDialog} className="flex-shrink-0 w-[9.0625rem] h-[2.875rem] rounded-[0.3125rem] bg-[#0f2c64]" style={{background:"#0f2c64"}}> <div className="  text-white font-['Poppins'] text-lg font-medium leading-[normal]">Not Now</div></Button>
           </div>
       </Dialog>
      
